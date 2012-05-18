@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>CSS Arrow</title>
+		<style type="text/css">
+		    .switch{
+		        position: relative;
+                width: 160px;
+                height: 44px;
+                color: #FFF;
+                border: 1px solid #7D7D7D;
+                border-radius: 10px;
+                background: #0077CA;
+                cursor: pointer;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+                font-family: arial;
+                font-size: 0;
+		    }
+		    .switch.on{
+                background: #0077CA;
+            }
+		    .switch.off{
+		        background: #848689;
+		    }
+		    .switch:before, .switch:after{
+		        position: relative;
+		        width: 50%;
+		        height: 100%;
+		        line-height: 44px;
+		        font-size: 32px;
+		        text-align: center;
+		        display: inline-block;
+                border-radius: 6px;
+		    }
+		    .switch:before{
+		        content: "ON";
+		        background: #0077CA;
+		    }
+		    .switch:after{
+                content: "OFF";
+                background: #848689;
+            }
+            .switch .bar{
+                position: absolute;
+                top: 0;
+                width: 50%;
+                height: 100%;
+                cursor: e-resize;
+                background: -moz-linear-gradient(top, #eee, #bbb 50%, #666 51%, #888);
+                background: -webkit-linear-gradient(top, #eee, #bbb 50%, #666 51%, #888);
+                background: -o-linear-gradient(top, #eee, #bbb 50%, #666 51%, #888);
+                background: -ms-linear-gradient(top, #eee, #bbb 50%, #666 51%, #888);
+                background: linear-gradient(top, #eee, #bbb 50%, #666 51%, #888);
+                border-radius: 5px;
+                z-index: 1;
+            }
+            .switch.on .bar{
+                left: 50%;
+            }
+            .switch.off .bar{
+                left: 0;
+            }
+		</style>
+	</head>
+	<body>
+		<div class="switch on">
+		    <span class="bar"></span>
+		</div>
+		<script src="../scripts/libs/jquery-1.7.1.min.js"></script>
+		<script src="../scripts/utils.js"></script>
+		<script>
+$(function(){
+
+$(document).delegate('.switch', 'click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    if( e.target !== this ) return;
+    $(this).toggleClass('off');
+});
+$(document).delegate('.switch .bar', 'mousedown touchstart', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var startX = e.clientX === void 0 ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+    var max = utils.getComputedWidth(this);
+    var left = parseInt(utils.getComputedProperty(this, 'left')) || 0;
+    var to;
+    var isOff, _isOff, currX;
+    $this.bind('mousemove.switch touchmove.switch', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        currX = e.clientX === void 0 ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+        to = left + currX - startX;
+        if( to < 0 ) to = 0;
+        if( to > max ) to = max;
+        $this.css('left', to + 'px');
+        _isOff = left + currX - startX < max/2;
+        if( isOff === _isOff ) return;
+        isOff = _isOff;
+        this.parentNode.className = 'switch ' + (_isOff?'off':'on');
+    })
+    $this.bind('mouseup.switch mouseleave.switch touchend.switch', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $this.unbind('.switch');
+        this.style.left = '';
+    });
+});
+
+});
+		</script>
+	</body>
+</html>
