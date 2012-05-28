@@ -63,12 +63,69 @@
             .switch.off .bar{
                 left: 0;
             }
+            
+            .switch-radius{
+                position: relative;
+                width: 160px;
+                height: 44px;
+                border: 1px solid #666;
+                border-radius: 22px;
+                background: #EAEAEA;
+                overflow: hidden;
+                font-family: arial;
+                font-size: 0;
+                white-space: nowrap;
+                -moz-user-select: none;
+                -webkit-user-select: none;
+                user-select: none;
+                top: 20px;
+            }
+            .switch-radius .bar{
+                position: relative;
+            }
+            .switch-radius.off .bar{
+                left: -116px;
+            }
+            .switch-radius .on, .switch-radius .off{
+                position: relative;
+                width: 138px;
+                height: 100%;
+                color: #FFF;
+                line-height: 44px;
+                font-size: 32px;
+                text-align: center;
+                display: inline-block;
+            }
+            .switch-radius .on{
+                background: #0077CA;
+            }
+            .switch-radius .off{
+                background: #848689;
+            }
+            .switch-radius .btn{
+                position: absolute;
+                top: 0;
+                left: 116px;
+                width: 42px;
+                height: 42px;
+                border: 1px solid #666;
+                border-radius: 21px;
+                background: #EFEFEF;
+                display: inline-block;
+            }
 		</style>
 	</head>
 	<body>
 		<div class="switch on">
 		    <span class="bar"></span>
 		</div>
+		<div class="switch-radius on">
+		    <div class="bar">
+		        <span class="on">ON</span>
+                <span class="off">OFF</span>
+                <span class="btn"></span>
+		    </div>
+        </div>
 		<script src="../scripts/libs/jquery-1.7.1.min.js"></script>
 		<script src="../scripts/utils.js"></script>
 		<script>
@@ -107,6 +164,38 @@ $(document).delegate('.switch .bar', 'mousedown touchstart', function(e){
         e.stopPropagation();
         $this.unbind('.switch');
         this.style.left = '';
+    });
+});
+
+$(document).delegate('.switch-radius', 'mousedown touchstart', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    var $this = $(this);
+    var $bar = $this.children();
+    var startX = e.clientX === void 0 ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+    var left = parseInt(utils.getComputedProperty($bar[0], 'left')) || 0;console.log(left)
+    var currX, to, moved = false;
+    $this.bind('mousemove.switch touchmove.switch', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        moved = true;
+        currX = e.clientX === void 0 ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+        to = left + currX - startX;
+        if( to < -116 ) to = -116;
+        if( to > 0 ) to = 0;
+        $bar.css('left', to + 'px');
+    })
+    $this.bind('mouseup.switch mouseleave.switch touchend.switch', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        $this.unbind('.switch');
+        $bar.css('left', '');
+        if( !moved ){
+            return $this[0].className = 'switch-radius ' + ($this.hasClass('off') ? 'on' : 'off');
+        }
+        currX = e.clientX === void 0 ? e.originalEvent.targetTouches[0].pageX : e.clientX;
+        to = left + currX - startX;
+        $this[0].className = 'switch-radius ' + (to > -58 ? 'on' : 'off');
     });
 });
 
