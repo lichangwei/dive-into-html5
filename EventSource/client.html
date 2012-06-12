@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>EventSource Test case</title>
+        <style type="text/css" rel="stylesheet">
+            #log {
+                display: block;
+                width: 100%;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="log"></div>
+        <script>
+            var source = new EventSource('events');
+            var log = document.getElementById('log');
+            source.addEventListener('message', function(e) {
+                console.log(e.data);
+                log.innerHTML += '<br/>' + e.data;
+            }, false);
+            source.addEventListener('open', function(e) {
+                console.log('Server-Sent Events opened.');
+            }, false);
+            source.addEventListener('error', function(e) {
+                if(e.readyState == EventSource.CLOSED) {
+                    console.error('closed.');
+                }
+            }, false);
+
+        </script>
+    </body>
+</html>
