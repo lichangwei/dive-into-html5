@@ -16,37 +16,58 @@
             <li type="triangle">triangle</li>
         </ul>
         <div id="svg">
-            <svg width="580" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg"></svg>
+            <svg width="580" height="200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                <style type="text/css" >
+                    <![CDATA[
+                        circle{
+                            stroke: rgb(255,204,0);
+                            stroke-width: 5;
+                            fill: rgba(0,0,0,0);
+                            display: none;
+                        }
+                        path{
+                            stroke: rgba(0,0,0,0.5);
+                            stroke-width: 3;
+                            fill: rgba(0,0,0,0);
+                        }
+                        path:hover, path.active{
+                            stroke-width: 10;
+                        }
+                    ]]>
+                </style>
+            </svg>
         </div>
-        <script src="../base/jquery-1.7.2.js"></script>
+        <script src="../../base/jquery-1.7.2.js"></script>
         <script>
             var $svg = $('#svg');
+            for(var i = 0; i < 10; i++){
+                addSVGElement('<circle cx="20" cy="20" r="7"></circle>');
+            }
+            
             $('.tools').delegate('li', 'mousedown', function(e){
                 draw( this.type );
             });
             function draw( type ){
                 if( type === 'triangle' ){
-                    var html = $svg.html();
-                    html = html.replace('</svg>', '');
-                    html += '<path type="triangle" d="M100 20L20 158.56L180 158.56z" stroke="rgb(255,204,0)" stroke-width="3" fill="none"></path>' + '</svg>';
-                    $svg.html(html)
+                    addSVGElement('<path type="triangle" d="M100 20L20 158.56L180 158.56z"></path>')
                 }
             }
-            $svg.mouseover(function(e){
-                var target = e.target;
-                if( target.getAttribute('type') ){
-                    target.setAttribute('stroke-width', 10);
-                }
-            });
-            $svg.mouseout(function(e){
-                var target = e.target;
-                if( target.getAttribute('type') ){
-                    target.setAttribute('stroke-width', 3);
-                }
-            });
+            function addSVGElement( elem ){
+                var svg = $svg.children();
+                svg.append(elem);
+                $svg.html($svg.html());
+            }
+            function addSVGElement (string) {
+                var document = $svg.children()[0].ownerDocument;
+                var svg = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg', null);
+                console.log(node)
+                document.documentElement.appendChild(node);
+            }
+            
             $svg.click(function(e){
                 var target = e.target;
                 if( target.getAttribute('type') === 'triangle' ){
+                    target.setAttribute('class', 'active');
                 }
             });
         </script>
