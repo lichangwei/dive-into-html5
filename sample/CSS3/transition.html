@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Transition</title>
+        <style type="text/css">
+            #div{
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100px;
+                height: 10px;
+                background: #E2E2E2;
+            }
+            .left{
+                -webkit-transform: rotate(90deg);
+                -webkit-transform-origin: 5px 5px;
+            }
+            .right{
+                -webkit-transform: rotate(270deg);
+                -webkit-transform-origin: 50px 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="div" class="down">A</div>
+        <script>
+            var directions = ['down', 'left', 'up', 'right', 'down'];
+            var div = document.getElementById('div');
+            div.addEventListener('click', function(e){
+                var current = this.className;
+                div.className = directions[directions.indexOf(current) + 1];
+            }, false);
+        </script>
+    </body>
+</html>
