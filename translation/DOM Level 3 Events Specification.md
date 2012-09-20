@@ -41,8 +41,8 @@ Copyright © 2012 W3C® (MIT, ERCIM, Keio), All Rights Reserved. W3C liability, 
 DOM事件在设计上有两个大的目标。其一，设计一个允许注册事件监听器，通过树结构描述事件流的事件系统。此外，该规范为用户界面控制提供了标准的事件模块，比如，为这些事件定义了上下文信息。
 其二，为当前浏览器的事件系统定义了一个公共子集。其目的是形成现有脚本和内容的互操作能力。并不能期望它能够向后兼容，但是，该规范会尽可能向后兼容。  
 ###[1.2 一致性](#dom-events-conformance)  
-
-
+**这部分是规范的。（待确认）**  
+该规范中，关键字 必须（MUST，REQUIRED，SHALL），禁止（MUST NOT，SHALL NOT），推荐（SHOULD，RECOMMENDED），不推荐（SHOULD NOT），可选（MAY，OPTIONAL）按照[RFC 2119](http://www.ietf.org/rfc/rfc2119.txt) 【[RFC2119](#ref-rfc2119)】来解释。  
 
 
 
