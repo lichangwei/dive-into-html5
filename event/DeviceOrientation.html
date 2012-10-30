@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8"/>
+		<title>Device Orientation Event</title>
+		<style rel="stylesheet">
+			html{
+				font-family: Courier;
+			}
+			#result p:before{
+				content: attr(before);
+			}
+		</style>
+	</head>
+	<body>
+		<div id="result">
+			<p id="alpha" before="alpha: "></p>
+			<p id="beta"  before="beta : "></p>
+			<p id="gamma" before="gamma: "></p>
+		</div>
+		<script>
+			var dom = {};
+			var ids = ['alpha', 'beta', 'gamma'];
+			var direction = ['东', '北', '西', '南'];
+			ids.forEach(function(it){
+				dom[it] = document.getElementById(it);
+			});
+			
+			window.addEventListener('deviceorientation', function(e){
+				var alpha = Math.round(e.alpha);
+				var index = Math.floor((alpha + 45)%360/90);
+				dom.alpha.innerHTML = alpha + ', 头朝 ' + direction[index];
+				
+				
+				dom.beta.innerHTML = e.beta;
+				dom.gamma.innerHTML = e.gamma;
+			}, false);
+		</script>
+	</body>
+</html>

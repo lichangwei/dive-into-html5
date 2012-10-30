@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf8"/>
+		<title>Device Motion Event</title>
+	</head>
+	<body>
+		<div id="config">
+			
+		</div>
+		<div id="result">
+			<div>
+				<span>X:</span>
+				<span id="x"></span>
+			</div>
+			<div>
+				<span>Y:</span>
+				<span id="y"></span>
+			</div>
+			<div>
+				<span>Z:</span>
+				<span id="z"></span>
+			</div>
+		</div>
+		<script>
+			var dom = {};
+			var ids = ['x', 'y', 'z'];
+			for(var i = 0; i < ids.length; i++){
+				var id = ids[i];
+				dom[id] = document.getElementById(id);
+			}
+			var max = {x: 0, y : 0, z: 0};
+			if(window.DeviceMotionEvent){
+				window.addEventListener('devicemotion', function(e){
+					var acceleration = e.acceleration;
+					ids.map(function(id){
+						max[id] = Math.max( Math.abs(acceleration[id]), max[id] );
+						dom[id].innerHTML = max[id];
+					});
+					return false;
+				}, false);
+			}
+		</script>
+	</body>
+</html>
