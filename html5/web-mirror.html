@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Web Mirror</title>
+        <meta name="title" content="Web Mirror">
+        <meta name="description" content="">
+        <style ref="stylesheet">
+            html{
+                background: #E2E2E2;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="tip"></div>
+        <video id="monitor"></video>
+        <script>
+            var video = document.getElementById('monitor');
+            var tip = document.getElementById('tip');
+            
+            navigator.getUserMedia = navigator.getUserMedia
+                || navigator.webkitGetUserMedia;
+            
+            navigator.getUserMedia({'video': true}, function(stream){
+                video.autoplay = true;
+                video.src = window.webkitURL.createObjectURL(stream);
+                video.onerror = function(){
+                    stream.stop();
+                    tip.innerHTML = 'Camera error.';
+                }
+            }, function(){
+                tip.innerHTML = 'No camera available.';
+            });
+        </script>
+    </body>
+</html>
