@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>window.open in mobile terminal</title>
+        <style rel="stylesheet">
+            html{
+                background: #E2E2E2;
+            }
+            em {
+                color: red;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <p>该页面用于测试什么情况下可以打开一个新页面。</p>
+            <p>请分别点击以下两个按钮之后检查页面输出。</p>
+            <p>结果：在检测是否是用户行为时，<em>iOS6</em>可以跨越若干个自定义事件。</p>
+            <p><em>iOS5</em>只能跨越若干个setTimeout。</p>
+        </div>
+        <input type="button" id="btn1" value="setTimeout">
+        <input type="button" id="btn2" value="Create new Event">
+        <div id="result"></div>
+        <script>
+        
+            var btn1 = document.getElementById('btn1');
+            var btn2 = document.getElementById('btn2');
+            var result = document.getElementById('result');
+            
+            window.onload = function(){
+                if( /(iPod|iPhone|iPad)/i.test(navigator.userAgent) ){
+                    openGoogle('window.onload');
+                }
+            }
+
+            btn1.addEventListener('touchend', function(){
+                openGoogle('touchend');
+            }, false);
+            
+            btn2.addEventListener('tap', function(){
+                openGoogle('custom event tap');
+            }, false);
+            
+            function setTimoutOpen(){
+                setTimeout(function(){
+                    openGoogle('touchend & setTimeout');
+                }, 1000);
+            }
+            
+            function openGoogle( title ){
+                var i = window.open( 'http://g.cn' );
+                log(title + (i ? '<em>能够</em>' : '<em>不能</em>') + '打开一个新页面。');
+            }
+            
+            btn2.addEventListener('touchend', function(){
+                var evt = document.createEvent('CustomEvent');
+                evt.initCustomEvent('tap', false, true, 1);
+                this.dispatchEvent(evt);
+            }, false);
+            
+            function log(){
+                result.innerHTML += Array.prototype.join.call(arguments, ', ') + '<br/>';
+            }
+        </script>
+    </body>
+</html>
