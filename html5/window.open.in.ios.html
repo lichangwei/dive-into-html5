@@ -14,7 +14,7 @@
     </head>
     <body>
         <div>
-            <p>该页面用于测试什么情况下可以打开一个新页面。</p>
+            <p>该页面用于测试iOS在什么情况下可以打开一个新页面。</p>
             <p>请分别点击以下两个按钮之后检查页面输出。</p>
             <p>结果：在检测是否是用户行为时，<em>iOS6</em>可以跨越若干个自定义事件。</p>
             <p><em>iOS5</em>只能跨越若干个setTimeout。</p>
@@ -35,7 +35,7 @@
             }
 
             btn1.addEventListener('touchend', function(){
-                openGoogle('touchend');
+                setTimoutOpen();
             }, false);
             
             btn2.addEventListener('tap', function(){
@@ -43,9 +43,11 @@
             }, false);
             
             function setTimoutOpen(){
-                setTimeout(function(){
+                (function(){
+                    setTimeout(function(){
                     openGoogle('touchend & setTimeout');
-                }, 1000);
+                    }, 1000);
+                })();
             }
             
             function openGoogle( title ){
