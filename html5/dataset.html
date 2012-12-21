@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>dataset in HTML5</title>
+    <style rel="stylesheet">
+    
+    </style>
+  </head>
+  <body>
+    <a href="http://caniuse.com/#feat=dataset">Go to caniuse.com</a>
+    <div id="elem" data-color="#E2E2E2"></div>
+    <script>
+      var elem = document.getElementById('elem');
+
+      function goThroughDataSet(){
+        for(var k in elem.dataset){
+          print('elem.dataset["' + k + '"] = "' + elem.dataset[k] + '"');
+        }
+      }
+
+      function printSplitLine(){
+        print('--------------------------');
+      }
+
+      function print( value ){
+        elem.innerHTML += value + '<br/>';
+      }
+
+      printSplitLine();
+      print('dataset is ' + (!!document.documentElement.dataset ? '' : 'not ') + 'supported')
+      print(elem.dataset);
+
+      printSplitLine();
+      goThroughDataSet();
+
+      printSplitLine();
+      print('add a dataset by elem.dataset["width"] = "20"');
+      elem.dataset["width"] = "20";
+      print('elem.dataset["width"] = ' + elem.dataset["width"]);
+      print('elem.getAttribute("data-width") = ' + elem.getAttribute("data-width"));
+
+      print('add a dataset by elem.setAttribute("data-height", "30")');
+      elem.setAttribute('data-height', "20");
+      print('elem.dataset["height"] = ' + elem.dataset["height"]);
+      print('elem.getAttribute("data-height") = ' + elem.getAttribute("data-height"));
+
+      printSplitLine();
+      goThroughDataSet();
+    </script>
+  </body>
+</html>
