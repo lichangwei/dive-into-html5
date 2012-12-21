@@ -1,40 +1,40 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Web Mirror</title>
-        <meta name="title" content="Web Mirror">
-        <meta name="description" content="">
-        <style ref="stylesheet">
-            html{
-                background: #E2E2E2;
-            }
-            #content{
-                width: 320px;
-                height: 240px;
-            }
-            #canvas, #mirror{
-                position: absolute;
-                display: none;
-            }
-        </style>
-    </head>
-    <body>
-        <div id="content">
-            <video id="video" width=320 height=240></video>
-            <canvas id="canvas" width=320 height=240></canvas>
-        </div>
-        <div id="menu">
-            <div id="menu-video">
-                <input type="button" id="takePhoto" value="Take a Photo">
-            </div>
-            <div id="menu-canvas">
-                <input type="button" id="back" value="Back to Mirror">
-                <input type="button" id="save" value="Save as a PNG">
-            </div>
-        </div>
-        <div id="tip"></div>
-        <script>
+  <head>
+    <meta charset="utf-8">
+    <title>Web Mirror</title>
+    <meta name="title" content="Web Mirror">
+    <meta name="description" content="">
+    <style ref="stylesheet">
+      html{
+        background: #E2E2E2;
+      }
+      #content{
+        width: 320px;
+        height: 240px;
+      }
+      #canvas, #mirror{
+        position: absolute;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <video id="video" width=320 height=240></video>
+      <canvas id="canvas" width=320 height=240></canvas>
+    </div>
+    <div id="menu">
+      <div id="menu-video">
+        <input type="button" id="takePhoto" value="Take a Photo">
+      </div>
+      <div id="menu-canvas">
+        <input type="button" id="back" value="Back to Mirror">
+        <input type="button" id="save" value="Save as a PNG">
+      </div>
+    </div>
+    <div id="tip"></div>
+    <script>
 var video = document.getElementById('video');
 var canvas = document.getElementById('canvas');
 var menuVideo = document.getElementById('menu-video');
@@ -42,45 +42,45 @@ var menuCanvas = document.getElementById('menu-canvas');
 var tip = document.getElementById('tip');
 var mirror = false;
 function showMirror(){
-    canvas.style.display = 'none';
-    menuCanvas.style.display = 'none';
-    video.style.display = 'block';
-    menuVideo.style.display = 'block';
-    if( mirror ) return ;
-    mirror = true;
-    navigator.getUserMedia = navigator.getUserMedia
-        || navigator.webkitGetUserMedia;
-    
-    navigator.getUserMedia({'video': true}, function(stream){
-        video.autoplay = true;
-        video.src = window.webkitURL.createObjectURL(stream);
-        video.onerror = function(){
-            stream.stop();
-            log( 'Camera error.' );
-        }
-    }, function(){
-        log( 'No camera available.' );
-    });
+  canvas.style.display = 'none';
+  menuCanvas.style.display = 'none';
+  video.style.display = 'block';
+  menuVideo.style.display = 'block';
+  if( mirror ) return ;
+  mirror = true;
+  navigator.getUserMedia = navigator.getUserMedia
+    || navigator.webkitGetUserMedia;
+  
+  navigator.getUserMedia({'video': true}, function(stream){
+    video.autoplay = true;
+    video.src = window.webkitURL.createObjectURL(stream);
+    video.onerror = function(){
+      stream.stop();
+      log( 'Camera error.' );
+    }
+  }, function(){
+    log( 'No camera available.' );
+  });
 }
 
 function takePhoto(){
-    video.style.display = 'none';
-    menuVideo.style.display = 'none';
-    canvas.style.display = 'block';
-    menuCanvas.style.display = 'block';
-    var ctx = canvas.getContext('2d');
-    ctx.drawImage(video, 0, 0, 320, 240);
+  video.style.display = 'none';
+  menuVideo.style.display = 'none';
+  canvas.style.display = 'block';
+  menuCanvas.style.display = 'block';
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(video, 0, 0, 320, 240);
 }
 
 function saveAsPng(){
-    var data = canvas.toDataURL('image/png');
-    //data = data.subtring(22);
-    window.location.href = 'image/octet-stream' + data;
-    //var blobBuilder = new BlobBuilder();
-    //blobBuilder.append( canvas.toDataURL('image/png') );
-    //fileEntry.createWriter(function (fileWriter) { 
-    //    fileWriter.write( blobBuilder.getBlob() );
-    //});
+  var data = canvas.toDataURL('image/png');
+  //data = data.subtring(22);
+  window.location.href = 'image/octet-stream' + data;
+  //var blobBuilder = new BlobBuilder();
+  //blobBuilder.append( canvas.toDataURL('image/png') );
+  //fileEntry.createWriter(function (fileWriter) { 
+  //  fileWriter.write( blobBuilder.getBlob() );
+  //});
 }
 
 document.getElementById('takePhoto').addEventListener('click', takePhoto, false);
@@ -88,10 +88,10 @@ document.getElementById('back').addEventListener('click', showMirror, false);
 document.getElementById('save').addEventListener('click', saveAsPng, false);
 
 function log(){
-    tip.innerHTML = Array.prototype.join.call(arguments, ', ');
+  tip.innerHTML = Array.prototype.join.call(arguments, ', ');
 }
 
 showMirror();
-        </script>
-    </body>
+    </script>
+  </body>
 </html>
