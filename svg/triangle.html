@@ -57,12 +57,6 @@
                 svg.append(elem);
                 $svg.html($svg.html());
             }
-            function addSVGElement (string) {
-                var document = $svg.children()[0].ownerDocument;
-                var svg = document.implementation.createDocument('http://www.w3.org/2000/svg', 'svg', null);
-                console.log(node)
-                document.documentElement.appendChild(node);
-            }
             
             $svg.click(function(e){
                 var target = e.target;
