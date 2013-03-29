@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>CSS3 3D</title>
+    <style ref="stylesheet">
+      .test{
+        width: 270px;
+        height: 129px;
+        background: url(http://www.baidu.com/img/shouye_b5486898c692066bd2cbaeda86d74448.gif);
+        -webkit-perspective: 600;
+        -webkit-transition: -webkit-transition 1s;
+      }
+      .test:hover{
+        -webkit-transform: rotate3d(0, 1, 0, -180deg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="test"></div>
+  </body>
+</html>
