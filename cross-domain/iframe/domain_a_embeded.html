@@ -1,0 +1,15 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Domain A Embeded</title>
+</head>
+<body>
+  <script>
+    window.addEventListener('hashchange', function(e){
+      var wh = location.hash.substring(1).split(',')
+      window.top.onIframeWidthHeightChanged(wh[0], wh[1]);
+    }, false);
+  </script>
+</body>
+</html> 

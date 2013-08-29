@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+  <style type="text/css">
+    body {
+      background-color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="iframe" width="100" height="100" frameborder="no" border="0px" marginwidth="0" marginheight="0"></iframe>
+  <script src="utils.js"></script>
+  <script>
+    var iframe = document.getElementById('iframe');
+    iframe.src = domain_b + path_to_root + '/domain_b.html';
+
+    function onIframeWidthHeightChanged(w, h){
+      iframe.width = w;
+      iframe.height = h;
+    }
+  </script>
+</body>
+</html>

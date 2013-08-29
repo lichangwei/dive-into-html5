@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Another Domain Page</title>
+  <style type="text/css">
+    body {
+      background-color: #666;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script src="utils.js"></script>
+  <script>
+    setInterval(function(){
+      var width = getRandom(300, 400);
+      var height = getRandom(200, 300);
+      onWidthHeightChanged(width, height);
+      document.body.firstChild.style = 'width:' + width + 'px; height:' + height + 'px';
+    }, 2000);
+  </script>
+  <script>
+    (function(){
+      var script = document.createElement('script');
+      script.src = domain_a + path_to_root + '/domain_a_embeded.js';
+      document.body.appendChild(script);
+    })();
+  </script>
+</body>
+</html>
