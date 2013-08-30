@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>b.example.com</title>
+  <style type="text/css">
+    body {
+      background-color: #eee;
+    }
+  </style>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+    document.domain = 'a.com';
+
+    setInterval(changeWidthHeight, 2000);
+
+    function changeWidthHeight(){
+      var width = getRandom(500, 600);
+      var height = getRandom(200, 300);
+      window.parent.onIframeWidthHeightChanged(width, height);
+      document.body.firstChild.style = 'width:' + width + 'px; height:' + height + 'px';
+    }
+
+    function getRandom(min, max){
+      return Math.floor(Math.random() * (max - min)) + min;
+    }
+  </script>
+</body>
+</html>

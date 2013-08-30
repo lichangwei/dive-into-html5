@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>domain.a.com</title>
+  <style type="text/css">
+    body{
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <p>原理：iframe的内容从一个域切换到另一个域时，window.name的值不会被修改。适用于跨域加载数据。</p>
+    <p>结果：如果控制台打印出了我的名字我的邮箱，那就运行成功了。</p>
+  </div>
+  <iframe id="iframe" frameborder="no" border="0px" marginwidth="0" marginheight="0"></iframe>
+  <script>
+    var domain_b_url = 'http://domain.b.com/github/dive-into-html5/cross-domain/window.name/domain.b.html';
+    var domain_a_proxy = 'http://domain.a.com/github/dive-into-html5/cross-domain/window.name/domain.a.proxy.html';
+    
+    var iframe = document.getElementById('iframe');
+    iframe.src = domain_b_url;
+    iframe.onload = function(){
+      iframe.src = domain_a_proxy;
+      iframe.onload = function(){
+        console.log(iframe.contentWindow.name);
+        iframe.onload = null;
+        iframe.parentNode.removeChild(iframe);
+      }
+    }
+  </script>
+</body>
+</html>

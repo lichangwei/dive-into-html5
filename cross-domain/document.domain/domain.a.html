@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>a.exmaple.com</title>
+  <style type="text/css">
+    body{
+      background: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="iframe" width="100" height="100" frameborder="no" border="0px" marginwidth="0" marginheight="0"></iframe>
+  <script>
+    document.domain = 'a.com';
+
+    var iframe = document.getElementById('iframe');
+    iframe.src = 'http://domain1.a.com/github/dive-into-html5/cross-domain/document.domain/doamin1.a.html';
+
+    window.onIframeWidthHeightChanged = function(width, height){
+      iframe.width = width;
+      iframe.height = height;
+    }
+  </script>
+</body>
+</html>
